@@ -1,0 +1,5 @@
+.env
+words.db
+pdm.toml
+**/__pypackages__
+**/__pycache__
