@@ -16,3 +16,6 @@ class Translation(peewee.Model):
 
     class Meta:
         database = db
+        indexes = (
+             (('word_id', 'content'), True),
+        )
