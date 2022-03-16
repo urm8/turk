@@ -8,6 +8,13 @@ class Word(peewee.Model):
 
     class Meta:
         database = db
+
+    def __str__(self):
+        return repr(self)
+
+    def __repr__(self) -> str:
+        return f'{self.__class__.__name__}({self.content}, {self.rate})'
+
 Word.add_index(peewee.SQL('create index if not exists word_rate_desc on word (rate desc);'))
 
 class Translation(peewee.Model):
@@ -19,3 +26,5 @@ class Translation(peewee.Model):
         indexes = (
              (('word_id', 'content'), True),
         )
+    
+    
