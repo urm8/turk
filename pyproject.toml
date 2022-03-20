@@ -15,14 +15,40 @@ dependencies = [
     "click>=8.0.4",
     "googletrans>=3.0.0",
     "django>=4.0.3",
+    "tortoise-orm[async-pg]>=0.18.1",
+    "grpclib>=0.4.2",
+    "protobuf>=3.19.4",
+    "aerich>=0.6.2",
+    "python-dotenv>=0.19.2",
+    "asyncpg>=0.25.0",
+    "loguru>=0.6.0",
+    "translate>=3.6.1",
 ]
 requires-python = ">=3.10"
 license = {text = "MIT"}
 
 [project.urls]
 Homepage = ""
+
+[project.optional-dependencies]
 [tool.pdm]
+[tool.pdm.dev-dependencies]
+dev = [
+    "pre-commit>=2.17.0",
+    "wemake-python-styleguide>=0.16.1",
+]
+
+
+[tool.aerich]
+tortoise_orm = "turk.config.TORTOISE_ORM"
+location = "./migrations"
+src_folder = "./."
 
 [build-system]
 requires = ["pdm-pep517"]
 build-backend = "pdm.pep517.api"
+
+[tool.pdm.scripts]
+migrate = "aerich migrate"
+upgrade = "aerich upgrade"
+downgrade = "aerich downgrade"

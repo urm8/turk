@@ -1,4 +1,8 @@
-# structure
+# smth
+
+[![wemake-python-styleguide](https://img.shields.io/badge/style-wemake-000000.svg)](https://github.com/wemake-services/wemake-python-styleguide)
+
+## structure
 
 ---
 
@@ -6,7 +10,7 @@
 * ./turk - set of selectors to retrieve some translations, shall only contain logic for retrieval / insertion of words + translations
 * ./scrap - service that scraps words/sentences n stuff from the web (I think, that wiki shall good enough for starters).
 
-# todo
+## todo
 
 ---
 

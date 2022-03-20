@@ -1,0 +1,34 @@
+version: "3.7"
+
+services:
+  redis:
+    image: redis:6.2
+    volumes:
+      - redis:/data
+    ports:
+      - "6379:6379"
+  postgres:
+    image: postgres:12.3
+    environment:
+      POSTGRES_DB: turk
+      POSTGRES_USER: turk
+      POSTGRES_PASSWORD: turk
+    volumes:
+      - ./scripts/db:/docker-entrypoint-initdb.d:ro
+      - db:/var/lib/postgresql/data:rw
+    shm_size: 1g
+  db:
+    image: toloco/pgbouncer:1.16
+    environment:
+      DB_HOST: postgres
+      DB_USER: turk
+      DB_PASSWORD: turk
+      DB_PORT: 5432
+    depends_on:
+      - postgres
+    ports:
+      - "6432:6432"
+
+volumes:
+  db: { }
+  redis: { }

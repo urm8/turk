@@ -1,30 +1,45 @@
-import peewee
-from .config import db
+"""Contains mappers for common tables."""
+from tortoise import fields
+from tortoise.models import Model
+from tortoise.indexes import Index
+
+MAX_DIGITS = 16
+MAX_WORD_LEN = 128
+DECIMAL_PLACES = 10
 
 
-class Word(peewee.Model):
-    content = peewee.CharField(unique=True, null=False)
-    rate = peewee.DecimalField(max_digits=16, decimal_places=14, null=True, index=True)
+class Word(Model):
+    """Basic mapper for word table.
 
-    class Meta:
-        database = db
+    Acts as a source for translation.
+    """
 
-    def __str__(self):
+    id = fields.IntField(pk=True)
+    word = fields.CharField(max_length=MAX_WORD_LEN, unique=True, null=False)
+    rate = fields.DecimalField(
+        max_digits=MAX_DIGITS,
+        decimal_places=DECIMAL_PLACES,
+        null=True,
+        index=True,
+    )
+
+    def __str__(self):  # noqa: D105
         return repr(self)
 
-    def __repr__(self) -> str:
-        return f'{self.__class__.__name__}({self.content}, {self.rate})'
+    def __repr__(self) -> str:  # noqa: D105
+        return 'Word({0}, {1})'.format(self.word, self.rate)
 
-Word.add_index(peewee.SQL('create index if not exists word_rate_desc on word (rate desc);'))
 
-class Translation(peewee.Model):
-    word = peewee.ForeignKeyField(Word, backref='translations')
-    content = peewee.CharField(unique=True, null=False)
+class Translation(Model):
+    """Basic mapper for translation to target language."""
+
+    id = fields.BigIntField(pk=True)
+    word = fields.ForeignKeyField('models.Word', related_name='translations')
+    translation = fields.CharField(
+        max_length=MAX_WORD_LEN, null=False,
+    )
 
     class Meta:
-        database = db
         indexes = (
-             (('word_id', 'content'), True),
+            Index(fields={'word_id', 'translation'}),
         )
-    
-    
