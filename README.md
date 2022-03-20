@@ -18,9 +18,7 @@
 
         <div>
             <h6>Choose correct translation for word <b>bir</b>:</h6>
-
         <table>
-
             <tr>
                 <td>Один</td>
                 <td>Два </td>
@@ -29,8 +27,6 @@
             </tr>
         </table>
         </div>
-
-        ---
 
         -> correct:
             next quiz
