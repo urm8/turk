@@ -13,6 +13,7 @@ dependencies = [
     "requests>=2.27.1",
     "google-cloud-translate==2.0.1",
     "click>=8.0.4",
+    "googletrans>=3.0.0",
 ]
 requires-python = ">=3.10"
 license = {text = "MIT"}
