@@ -40,6 +40,9 @@
     * allow user to propose a word with given translation.
   * [ ] /stats
     * show users current statistics (correct answers and so on)
-
 * [ ] web app (most probably django, to overview stats, add content)
 * [ ] scrapy service, with spiders, to scrap forums/sites and extract text out of them, to get statistics analysis of most common current words
+* [ ] grpc service for quizes
+  * [ ] - ddl for translation + word + quiz + user
+  * [ ] - quiz service
+  * [ ] - crud service
