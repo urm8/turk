@@ -36,6 +36,7 @@ Homepage = ""
 dev = [
     "pre-commit>=2.17.0",
     "wemake-python-styleguide>=0.16.1",
+    "grpcio-tools>=1.45.0",
 ]
 
 
@@ -52,3 +53,4 @@ build-backend = "pdm.pep517.api"
 migrate = "aerich migrate"
 upgrade = "aerich upgrade"
 downgrade = "aerich downgrade"
+gen-proto = "./scripts/_compile.sh"

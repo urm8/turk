@@ -1,0 +1,10 @@
+syntax="proto3";
+
+import "registry/common.proto";
+import "registry/word.proto";
+
+
+service WordService {
+    rpc GetWord(IdRequest) returns (Word) {};
+    rpc CreateWord(CreateWordRequest) returns (Word) {}
+}

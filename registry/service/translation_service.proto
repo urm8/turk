@@ -1,0 +1,11 @@
+syntax="proto3";
+
+import "registry/common.proto";
+import "registry/translation.proto";
+
+
+service TranslationService {
+    rpc GetWordTranslation(WordTranslationRequest) returns (Translation) {}
+    rpc GetTranslation(IdRequest) returns (Translation) {}
+    rpc CreateTranslation(CreateTranslationRequest) returns (Translation) {}
+}

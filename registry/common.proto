@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message IdRequest {
+    string id = 1;
+}
+

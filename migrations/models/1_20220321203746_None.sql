@@ -1,15 +1,15 @@
 -- upgrade --
 CREATE TABLE IF NOT EXISTS "word" (
-    "id" SERIAL NOT NULL PRIMARY KEY,
+    "id" UUID NOT NULL  PRIMARY KEY,
     "word" VARCHAR(128) NOT NULL UNIQUE,
     "rate" DECIMAL(16,10)
 );
 CREATE INDEX IF NOT EXISTS "idx_word_rate_013847" ON "word" ("rate");
 COMMENT ON TABLE "word" IS 'Basic mapper for word table.';
 CREATE TABLE IF NOT EXISTS "translation" (
-    "id" BIGSERIAL NOT NULL PRIMARY KEY,
+    "id" UUID NOT NULL  PRIMARY KEY,
     "translation" VARCHAR(128) NOT NULL,
-    "word_id" INT NOT NULL REFERENCES "word" ("id") ON DELETE CASCADE
+    "word_id" UUID NOT NULL REFERENCES "word" ("id") ON DELETE CASCADE
 );
 CREATE  INDEX IF NOT EXISTS "idx_translation_word_id_553829" ON "translation" ("word_id", "translation");
 COMMENT ON TABLE "translation" IS 'Basic mapper for translation to target language.';

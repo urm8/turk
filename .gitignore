@@ -3,3 +3,4 @@ words.db
 pdm.toml
 **/__pypackages__
 **/__pycache__
+turk/proto/**/*_pb2.py

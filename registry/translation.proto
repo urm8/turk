@@ -1,0 +1,17 @@
+syntax = "proto3";
+import "registry/word.proto";
+
+message Translation {
+    string id = 1;
+    Word word = 2;
+    string translation = 3;
+}
+
+message CreateTranslationRequest { 
+    string word_id = 1;
+    string translation = 2;
+}
+
+message WordTranslationRequest {
+    string word_id = 1;
+}

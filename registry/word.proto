@@ -1,0 +1,12 @@
+
+syntax = "proto3";
+
+message Word {
+    optional string id = 1;
+    string word = 2;
+    optional float rate = 3;
+}
+
+message CreateWordRequest { 
+    string word = 1;
+}

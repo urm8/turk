@@ -14,7 +14,7 @@ class Word(Model):
     Acts as a source for translation.
     """
 
-    id = fields.IntField(pk=True)
+    id = fields.UUIDField(pk=True)
     word = fields.CharField(max_length=MAX_WORD_LEN, unique=True, null=False)
     rate = fields.DecimalField(
         max_digits=MAX_DIGITS,
@@ -33,7 +33,7 @@ class Word(Model):
 class Translation(Model):
     """Basic mapper for translation to target language."""
 
-    id = fields.BigIntField(pk=True)
+    id = fields.UUIDField(pk=True)
     word = fields.ForeignKeyField('models.Word', related_name='translations')
     translation = fields.CharField(
         max_length=MAX_WORD_LEN, null=False,
