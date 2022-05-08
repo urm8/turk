@@ -7,6 +7,10 @@ message Word {
     optional float rate = 3;
 }
 
-message CreateWordRequest { 
+message WordResponse {
+    optional Word word = 1;
+}
+
+message CreateWordRequest {
     string word = 1;
 }

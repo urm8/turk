@@ -5,6 +5,6 @@ import "registry/word.proto";
 
 
 service WordService {
-    rpc GetWord(IdRequest) returns (Word) {};
-    rpc CreateWord(CreateWordRequest) returns (Word) {}
+    rpc GetWord(IdRequest) returns (WordResponse) {};
+    rpc CreateWord(CreateWordRequest) returns (WordResponse) {}
 }

@@ -1,56 +1,46 @@
-[project]
-name = ""
-version = ""
+[tool.poetry]
+name = "turk"
+version = "0.1.0"
 description = ""
-authors = [
-    {name = "urm8", email = "arctgisnil@gmail.com"},
-]
-dependencies = [
-    "pandas>=1.4.1",
-    "lxml>=4.8.0",
-    "peewee>=3.14.10",
-    "aiohttp>=3.8.1",
-    "requests>=2.27.1",
-    "google-cloud-translate==2.0.1",
-    "click>=8.0.4",
-    "googletrans>=3.0.0",
-    "django>=4.0.3",
-    "tortoise-orm[async-pg]>=0.18.1",
-    "grpclib>=0.4.2",
-    "protobuf>=3.19.4",
-    "aerich>=0.6.2",
-    "python-dotenv>=0.19.2",
-    "asyncpg>=0.25.0",
-    "loguru>=0.6.0",
-    "translate>=3.6.1",
-]
-requires-python = ">=3.10"
-license = {text = "MIT"}
+authors = ["urm8 <arctgisnil@gmail.com>"]
 
-[project.urls]
-Homepage = ""
+[tool.poetry.dependencies]
+python = "^3.9"
+pandas = "^1.4.1"
+lxml = "^4.8.0"
+aiohttp = "^3.8.1"
+requests = "^2.27.1"
+click = "^8.0.4"
+googletrans = "^3.0.0"
+Django = "^4.0.3"
+protobuf = "^3.19.4"
+aerich = "^0.6.2"
+python-dotenv = "^0.20.0"
+loguru = "^0.6.0"
+translate = "^3.6.1"
+grpcio = {url = "https://files.pythonhosted.org/packages/65/75/8b706e1170e2c7b6242b1675259e47986bb4fc490f29387989a965972e6e/grpcio-1.44.0.tar.gz"}
+mypy-protobuf = "^3.2.0"
+tortoise-orm = {extras = ["asyncpg"], version = "^0.19.0"}
+aiomysql = "^0.0.22"
+SQLAlchemy = "^1.4.32"
+alembic = "^1.7.7"
+django-ninja = "^0.17.0"
+celery = "^5.2.6"
+social-auth-app-django = "^5.0.0"
+aiogram = "^2.20"
+dj-database-url = "^0.5.0"
+psycopg2 = "^2.9.3"
 
-[project.optional-dependencies]
-[tool.pdm]
-[tool.pdm.dev-dependencies]
-dev = [
-    "pre-commit>=2.17.0",
-    "wemake-python-styleguide>=0.16.1",
-    "grpcio-tools>=1.45.0",
-]
+[tool.poetry.dev-dependencies]
+grpcio-tools = {url = "https://files.pythonhosted.org/packages/53/3e/bdb69af20f03ce1ad54a65625302b137d3a040958f214cee5efa3ca0b0c4/grpcio-tools-1.44.0.tar.gz"}
 
 
 [tool.aerich]
 tortoise_orm = "turk.config.TORTOISE_ORM"
 location = "./migrations"
 src_folder = "./."
-
 [build-system]
-requires = ["pdm-pep517"]
-build-backend = "pdm.pep517.api"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 
-[tool.pdm.scripts]
-migrate = "aerich migrate"
-upgrade = "aerich upgrade"
-downgrade = "aerich downgrade"
-gen-proto = "./scripts/_compile.sh"
+[tool.alembic]
