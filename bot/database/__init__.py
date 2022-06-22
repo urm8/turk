@@ -1,4 +1,4 @@
-from data_base.sqlite_db import (
+from database.sqlite_db import (
     answer_table_add_entry,
     answer_table_check_entry_existence,
     answer_table_delete_entry,

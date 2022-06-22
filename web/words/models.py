@@ -38,3 +38,9 @@ class Translation(models.Model):
 
     def __repr__(self) -> str:
         return f'T("{self.one} <-> {self.other}")'
+
+
+class Example(models.Model):
+    word = models.ForeignKey(to=Word, on_delete=models.CASCADE)
+    lang = models.ForeignKey(to=Language, on_delete=models.CASCADE)
+    content = models.CharField(max_length=512)

@@ -1,31 +1,24 @@
 """Translates words from db."""
-import asyncio
 
-from django.db.models import Exists, OuterRef, Q
+from celery import shared_task
 from loguru import logger
 from translate import Translator
 from words.models import Language, Translation, Word
 
 
-def translate():
+@shared_task
+def run_translate(word_id: int, target_lang: str) -> None:
     """Stupid function that translates words."""
     logger.info('start')
-    translator = Translator(to_lang='ru', from_lang='tr')
-    logger.debug('handle: {}')
-    ru, tr = Language.objects.get(code='ru'), Language.objects.get(code='tr')
-    for word in Word.objects.filter(lang=tr).exclude(
-            Exists(
-                Translation.objects.filter(
-                    Q(one_id=OuterRef('id'), other__lang=ru) | Q(
-                        other_id=OuterRef('id'), one__lang=ru,
-                    ),
-                ),
-            ),
-    ):
-        translation = translator.translate(word.content)
-        translation = Word.objects.create(content=translation, lang=ru)
-        Translation.objects.create(one=word, other=translation)
-        logger.info(
-            'Translated: "{}" => "{}"',
-            word.content, translation.content,
-        )
+    word = Word.objects.all().select_related('lang').get(id=word_id)
+    source_l, target_l = word.lang, Language.objects.get(code=target_lang)
+    translator = Translator(from_lang=source_l.code, to_lang=target_l.code)
+    logger.debug('handle: {}', word.content)
+
+    translation = translator.translate(word.content)
+    translation = Word.objects.create(content=translation, lang=ru)
+    Translation.objects.create(one=word, other=translation)
+    logger.info(
+        'Translated: "{}" => "{}"',
+        word.content, translation.content,
+    )

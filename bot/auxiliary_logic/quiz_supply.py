@@ -5,33 +5,7 @@ from random import randrange
 
 import aiohttp
 from bs4 import BeautifulSoup
-from data_base.sqlite_db import stats_table_read_stats, user_table_read_entries
-
-
-# phrase bank
-def get_cheer(regime: str):
-
-    new_cheer = ''
-
-    k, i, count = randrange(10), 0, 0
-    filepath = 'true samurai path'
-
-    if regime == 'y':
-        filepath = 'auxiliary_logic/cheers.txt'
-
-    if regime == 'n':
-        filepath = 'auxiliary_logic/not_cheers.txt'
-
-    with open(filepath, 'r', encoding='utf-8') as fin:
-        while count < k:
-            i += 1
-            if fin.read(1) == '\n':
-                count += 1
-        current_char = fin.read(1)
-        while current_char != '\n':
-            new_cheer += current_char
-            current_char = fin.read(1)
-    return new_cheer
+from database.sqlite_db import stats_table_read_stats, user_table_read_entries
 
 
 def get_quiz_options(user_id: int):
@@ -143,7 +117,7 @@ async def get_examples(word: str):
     except asyncio.TimeoutError:
         print('Timeout occurred', file=sys.stderr)
     except aiohttp.ClientError:
-        print('Client error occurred', file=sys.stderr)
+        print('ClientBase error occurred', file=sys.stderr)
 
     final_string = normalize_examples(examples)
 
@@ -151,12 +125,3 @@ async def get_examples(word: str):
         return f'*Here are some examples with the word {word}:*\n\n' + final_string
 
     return f'Unfortunately can\'t find any examples with the word {word}.'
-
-
-if __name__ == '__main__':
-    print(
-        normalize_word(
-            'lawjfnlkjn12  ---- \n\n\n\nges\nesg\n2eqodwwjefr;324w;qqldak112!@^&',
-        ),
-    )
-    # lawjfnlkjn+-+ges+esg+eqodwwjefrwqqldak
